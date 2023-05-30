@@ -15,7 +15,13 @@ export default function Shop() {
           <Image src={cartIcon} alt="cart" />
         </div>
       </header>
-      <main></main>
+      <main className={styles["main-container"]}>
+        <div className={styles["content-box"]}>
+          <p>사이토카인.</p>
+          <p>완벅한 탈모케어를 위한 선택</p>
+        </div>
+        <section className={styles["product-box"]}></section>
+      </main>
     </div>
   );
 }
