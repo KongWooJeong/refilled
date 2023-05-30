@@ -8,7 +8,29 @@
 }
 
 .page-container {
-  background-color: #fff;
   width: 375px;
   height: 100%;
+  background-color: #fff;
+
+  .header-container {
+    display: flex;
+    height: 60px;
+    background-color: #fff9;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+
+    .menu-box {
+      width: 60px;
+    }
+
+    .title-box {
+      width: 255px;
+      border-left: 1px solid #000;
+      border-right: 1px solid #000;
+    }
+
+    .cart-box {
+      width: 60px;
+    }
+  }
 }
