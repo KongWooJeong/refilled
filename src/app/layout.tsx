@@ -24,6 +24,7 @@ export default function RootLayout({
           <div className={styles["page-container"]}>
             <Header />
             <div className={styles["main-container"]}>{children}</div>
+            <div id="modal-root" />
           </div>
         </div>
       </body>
