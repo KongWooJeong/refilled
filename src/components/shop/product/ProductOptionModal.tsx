@@ -5,22 +5,31 @@ import ReactDOM from "react-dom";
 
 import styles from "./productOptionModal.module.scss";
 
+interface ProductOption {
+  id: number;
+  name: string;
+  price: number;
+  stock: number;
+}
+
 interface ProductOptionModalProps {
   onClose: () => void;
+  optionList: ProductOption[];
 }
 
 export function ProductOptionModal(props: ProductOptionModalProps) {
-  const { onClose } = props;
-
-  const modalOverlay = useRef<HTMLDivElement>(null);
-  const handleCloseClick = (event: MouseEvent<HTMLDivElement>) => {
-    if (event.target === modalOverlay.current) {
-      onClose();
-    }
-  };
+  const { onClose, optionList } = props;
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>("옵션선택");
+
+  const modalOverlay = useRef<HTMLDivElement>(null);
+
+  function handleCloseClick(event: MouseEvent<HTMLDivElement>) {
+    if (event.target === modalOverlay.current) {
+      onClose();
+    }
+  }
 
   function handleOpitionBoxClick() {
     setIsMenuOpen((state) => !state);
@@ -40,20 +49,30 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
       <div className={styles["modal"]}>
         <div className={styles["name-box"]}>헤어 리커버리 사이토카인 키트</div>
         <div className={styles["select-box"]}>
-          <div className={styles["option-box"]} onClick={handleOpitionBoxClick}>
+          <div
+            className={
+              optionList.length === 0
+                ? styles["empty-option-box"]
+                : styles["option-box"]
+            }
+            onClick={handleOpitionBoxClick}
+          >
             {selectedOption}
           </div>
           {isMenuOpen && (
             <div className={styles["option-content"]}>
-              <div
-                onClick={() => {
-                  handleOptionClick("profile");
-                }}
-              >
-                profile
-              </div>
-              <div>write a post</div>
-              <div>settings</div>
+              {optionList.map((option) => {
+                return (
+                  <div
+                    key={option.id}
+                    onClick={() => {
+                      handleOptionClick(option.name);
+                    }}
+                  >
+                    {option.name}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
