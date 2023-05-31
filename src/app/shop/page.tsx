@@ -1,24 +1,14 @@
 import styles from "./shop.module.scss";
-import Image from "next/image";
-import menuIcon from "../../../public/icon/menu.svg";
-import cartIcon from "../../../public/icon/cart.svg";
 import { ProductItem } from "@/components/shop/product/ProductItem";
 import { shopRepository } from "@/data/repository/shopRepository";
+import { Header } from "@/components/common/Header";
 
 export default async function Shop() {
   const productList = await shopRepository.getShopProductList();
 
   return (
     <div className={styles["page-container"]}>
-      <header className={styles["header-container"]}>
-        <div className={styles["menu-box"]}>
-          <Image src={menuIcon} alt="menu" />
-        </div>
-        <div className={styles["title-box"]}>Refilled</div>
-        <div className={styles["cart-box"]}>
-          <Image src={cartIcon} alt="cart" />
-        </div>
-      </header>
+      <Header />
       <main className={styles["main-container"]}>
         <div className={styles["content-box"]}>
           <p>사이토카인.</p>

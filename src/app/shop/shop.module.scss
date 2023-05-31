@@ -13,39 +13,6 @@
   width: 375px;
   background-color: #fff;
 
-  .header-container {
-    display: flex;
-    height: 60px;
-    background-color: #fff9;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-
-    .menu-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60px;
-    }
-
-    .title-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 255px;
-      border-left: 1px solid #000;
-      border-right: 1px solid #000;
-      color: #040000;
-      font-size: 25px;
-    }
-
-    .cart-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60px;
-    }
-  }
-
   .main-container {
     display: flex;
     flex-direction: column;
