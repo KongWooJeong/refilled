@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./cartItem.module.scss";
+import { removeCartItem } from "@/redux/features/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 interface Tag {
   color: string;
@@ -19,6 +23,7 @@ interface CartItemProps {
 
 export function CartItem(props: CartItemProps) {
   const {
+    id,
     name,
     originPrice,
     price,
@@ -27,6 +32,12 @@ export function CartItem(props: CartItemProps) {
     option,
     imageUrl,
   } = props;
+
+  const dispatch = useAppDispatch();
+
+  function handleRemoveItemButtonClick() {
+    dispatch(removeCartItem(id));
+  }
 
   const renderCartItemPriceInfo = () => {
     if (discountPercent === 0) {
@@ -61,7 +72,12 @@ export function CartItem(props: CartItemProps) {
           {renderCartItemPriceInfo()}
         </div>
       </div>
-      <div className={styles["close-button"]}>x</div>
+      <div
+        className={styles["close-button"]}
+        onClick={handleRemoveItemButtonClick}
+      >
+        x
+      </div>
     </div>
   );
 }
