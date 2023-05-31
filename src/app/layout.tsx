@@ -19,7 +19,7 @@ export default function RootLayout({
         <div className={styles["root-container"]}>
           <div className={styles["page-container"]}>
             <Header />
-            {children}
+            <div className={styles["main-container"]}>{children}</div>
           </div>
         </div>
       </body>

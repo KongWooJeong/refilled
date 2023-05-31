@@ -23,7 +23,6 @@ $content-line-height: 30px;
 
   height: 100%;
   padding: $main-padding;
-  overflow-y: scroll;
 
   .content-box {
     @include content-font-settings;
