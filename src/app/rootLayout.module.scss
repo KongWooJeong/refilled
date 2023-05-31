@@ -2,10 +2,21 @@ $root-conatiner-height: 100vh;
 $page-conatiner-width: 375px;
 $root-background-color: #f2f2f2;
 $page-background-color: #fff;
+$explain-container-width: 217px;
+$explain-container-height: 72px;
+$explain-container-font-weight: 700;
+$explain-container-font-size: 25px;
+$explain-container-margin-right: 31px;
 
 @mixin flex-display($direction) {
   display: flex;
   flex-direction: $direction;
+}
+
+@mixin mobile {
+  @media (width <= 700px) {
+    @content;
+  }
 }
 
 .root-container {
@@ -26,4 +37,18 @@ $page-background-color: #fff;
       overflow-y: scroll;
     }
   }
+}
+
+.explain-container {
+  @include mobile {
+    display: none;
+  }
+
+  align-self: center;
+  width: $explain-container-width;
+  height: $explain-container-height;
+  font-weight: $explain-container-font-weight;
+  font-size: $explain-container-font-size;
+  text-align: center;
+  margin-right: $explain-container-margin-right;
 }
