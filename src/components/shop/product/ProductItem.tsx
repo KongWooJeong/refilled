@@ -1,5 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./productItem.module.scss";
+import { useState } from "react";
+
+import { ProductOptionModal } from "./ProductOptionModal";
 
 interface Tag {
   color: string;
@@ -35,6 +40,20 @@ export function ProductItem(props: ProductItemProps) {
     imageUrl,
   } = props;
 
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+
+  function showModal(): void {
+    setIsShowModal(true);
+  }
+
+  function hideModal(): void {
+    setIsShowModal(false);
+  }
+
+  function handleProductClick(): void {
+    showModal();
+  }
+
   const renderProductPriceInfo = () => {
     if (discountPercent === 0) {
       return <div className={styles["origin-price-box"]}>{originPrice}원</div>;
@@ -54,16 +73,19 @@ export function ProductItem(props: ProductItemProps) {
   };
 
   return (
-    <div className={styles["product-container"]}>
-      <div className={styles["image-box"]}>
-        <Image src={imageUrl} width={168} height={168} alt="product image" />
+    <>
+      <div className={styles["product-container"]} onClick={handleProductClick}>
+        <div className={styles["image-box"]}>
+          <Image src={imageUrl} width={168} height={168} alt="product image" />
+        </div>
+        {tagInfo !== "" && (
+          <div className={styles[`${tagInfo.color}-box`]}>{tagInfo.text}</div>
+        )}
+        <div className={styles["name-box"]}>{name}</div>
+        <div className={styles["description-box"]}>{description}</div>
+        {renderProductPriceInfo()}
       </div>
-      {tagInfo !== "" && (
-        <div className={styles[`${tagInfo.color}-box`]}>{tagInfo.text}</div>
-      )}
-      <div className={styles["name-box"]}>{name}</div>
-      <div className={styles["description-box"]}>{description}</div>
-      {renderProductPriceInfo()}
-    </div>
+      {isShowModal && <ProductOptionModal onClose={hideModal} />}
+    </>
   );
 }
