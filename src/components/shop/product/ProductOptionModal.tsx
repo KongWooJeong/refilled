@@ -2,8 +2,9 @@
 
 import { useRef, useState, MouseEvent } from "react";
 import ReactDOM from "react-dom";
-
 import styles from "./productOptionModal.module.scss";
+import { addCartItem } from "@/redux/features/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 interface Tag {
   color: string;
@@ -38,9 +39,13 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
   const { onClose, productInfo } = props;
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string>("옵션선택");
+  const [selectedOption, setSelectedOption] = useState<ProductOption | null>(
+    null
+  );
 
   const modalOverlay = useRef<HTMLDivElement>(null);
+
+  const dispatch = useAppDispatch();
 
   function handleCloseClick(event: MouseEvent<HTMLDivElement>) {
     if (event.target === modalOverlay.current) {
@@ -52,9 +57,26 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
     setIsMenuOpen((state) => !state);
   }
 
-  function handleOptionClick(option: string) {
+  function handleOptionClick(option: ProductOption) {
     setSelectedOption(option);
     setIsMenuOpen(false);
+  }
+
+  function handleAddCartButtonClick() {
+    dispatch(
+      addCartItem({
+        id: productInfo.id,
+        name: productInfo.name,
+        originPrice: productInfo.originPrice,
+        price: productInfo.price,
+        discountPercent: productInfo.discountPercent,
+        tagInfo: productInfo.tagInfo,
+        description: productInfo.description,
+        imageUrl: productInfo.imageUrl,
+        selectedOption,
+      })
+    );
+    onClose();
   }
 
   const modalContent = (
@@ -74,7 +96,7 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
             }
             onClick={handleOpitionBoxClick}
           >
-            {selectedOption}
+            {selectedOption === null ? "옵션선택" : selectedOption.name}
           </div>
           {isMenuOpen && (
             <div className={styles["option-content"]}>
@@ -83,7 +105,7 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
                   <div
                     key={option.id}
                     onClick={() => {
-                      handleOptionClick(option.name);
+                      handleOptionClick(option);
                     }}
                   >
                     {option.name}
@@ -94,7 +116,9 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
           )}
         </div>
         <div className={styles["button-container"]}>
-          <button className={styles.button}>장바구니 담기</button>
+          <button className={styles.button} onClick={handleAddCartButtonClick}>
+            장바구니 담기
+          </button>
         </div>
       </div>
     </div>

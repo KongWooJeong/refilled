@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { nanoid } from "nanoid";
 
 interface Tag {
   color: string;
@@ -21,7 +22,7 @@ interface Product {
   tagInfo: Tag | "";
   description: string;
   imageUrl: string;
-  productOptions: ProductOption[];
+  selectedOption: ProductOption | null;
 }
 
 interface CartState {
@@ -39,7 +40,7 @@ export const cart = createSlice({
   initialState,
   reducers: {
     addCartItem: (state, action: PayloadAction<Product>) => {
-      const { id } = action.payload;
+      const id = nanoid();
 
       state.cartItem[id] = action.payload;
     },
