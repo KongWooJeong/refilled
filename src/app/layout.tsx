@@ -2,7 +2,7 @@ import "normalize.css";
 
 import { Header } from "@/components/common/Header";
 import styles from "./rootLayout.module.scss";
-import { Providers } from "@/redux/provider";
+import { Providers } from "@/redux/Provider";
 
 export const metadata = {
   title: "",
