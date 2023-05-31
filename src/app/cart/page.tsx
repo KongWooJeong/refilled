@@ -1,26 +1,45 @@
-import styles from "./cart.module.scss";
+"use client";
 
+import styles from "./cart.module.scss";
 import { CartItem } from "@/components/cart/CartItem";
+import { useAppSelector } from "@/redux/hooks";
 
 export default function Cart() {
+  const { totalCount, totalPrice, cartItem } = useAppSelector((state) => {
+    return {
+      totalCount: state.cartReducer.totalItemCount,
+      totalPrice: state.cartReducer.totalItemPrice,
+      cartItem: state.cartReducer.cartItem,
+    };
+  });
+
   return (
     <main className={styles["main-container"]}>
       <section className={styles["product-container"]}>
         {/* 임시로 목업 데이터 적용 */}
-        <CartItem
-          name="헤어 리커버리 사이토카인™ 샴푸 플러스"
-          originPrice={66500}
-          price={29000}
-          tagInfo={{ color: "gray", text: "NEW" }}
-          description="탈모케어를 위한 최고의 제품"
-          imageUrl="https://s3.ap-northeast-2.amazonaws.com/theconst.kr/condor-img/202207/1656914274085.jpg"
-          discountPercent={50}
-        />
+
+        {Object.entries(cartItem).map(([key, value]) => {
+          return (
+            <CartItem
+              key={key}
+              id={key}
+              name={value.name}
+              originPrice={value.originPrice}
+              price={value.price}
+              tagInfo={value.tagInfo}
+              option={value.selectedOption?.name}
+              imageUrl={value.imageUrl}
+              discountPercent={value.discountPercent}
+            />
+          );
+        })}
       </section>
       <div className={styles["purchase-container"]}>
         <div className={styles["button-container"]}>
           <button className={styles.button}>
-            <span className={styles["text-medium"]}>5개 | 29,0000원 </span>
+            <span
+              className={styles["text-medium"]}
+            >{`${totalCount}개 | ${totalPrice}원 `}</span>
             <span className={styles["text-bold"]}>구매하기</span>
           </button>
         </div>

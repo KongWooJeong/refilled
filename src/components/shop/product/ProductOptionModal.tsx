@@ -2,8 +2,14 @@
 
 import { useRef, useState, MouseEvent } from "react";
 import ReactDOM from "react-dom";
-
 import styles from "./productOptionModal.module.scss";
+import { addCartItem } from "@/redux/features/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
+
+interface Tag {
+  color: string;
+  text: string;
+}
 
 interface ProductOption {
   id: number;
@@ -12,18 +18,34 @@ interface ProductOption {
   stock: number;
 }
 
+interface ProductInfo {
+  id: number;
+  name: string;
+  originPrice: number;
+  price: number;
+  discountPercent: number;
+  tagInfo: Tag | "";
+  description: string;
+  imageUrl: string;
+  productOptions: ProductOption[];
+}
+
 interface ProductOptionModalProps {
   onClose: () => void;
-  optionList: ProductOption[];
+  productInfo: ProductInfo;
 }
 
 export function ProductOptionModal(props: ProductOptionModalProps) {
-  const { onClose, optionList } = props;
+  const { onClose, productInfo } = props;
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string>("옵션선택");
+  const [selectedOption, setSelectedOption] = useState<ProductOption | null>(
+    null
+  );
 
   const modalOverlay = useRef<HTMLDivElement>(null);
+
+  const dispatch = useAppDispatch();
 
   function handleCloseClick(event: MouseEvent<HTMLDivElement>) {
     if (event.target === modalOverlay.current) {
@@ -35,9 +57,26 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
     setIsMenuOpen((state) => !state);
   }
 
-  function handleOptionClick(option: string) {
+  function handleOptionClick(option: ProductOption) {
     setSelectedOption(option);
     setIsMenuOpen(false);
+  }
+
+  function handleAddCartButtonClick() {
+    dispatch(
+      addCartItem({
+        id: productInfo.id,
+        name: productInfo.name,
+        originPrice: productInfo.originPrice,
+        price: productInfo.price,
+        discountPercent: productInfo.discountPercent,
+        tagInfo: productInfo.tagInfo,
+        description: productInfo.description,
+        imageUrl: productInfo.imageUrl,
+        selectedOption,
+      })
+    );
+    onClose();
   }
 
   const modalContent = (
@@ -47,26 +86,26 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
       onClick={handleCloseClick}
     >
       <div className={styles["modal"]}>
-        <div className={styles["name-box"]}>헤어 리커버리 사이토카인 키트</div>
+        <div className={styles["name-box"]}>{productInfo.name}</div>
         <div className={styles["select-box"]}>
           <div
             className={
-              optionList.length === 0
+              productInfo.productOptions.length === 0
                 ? styles["empty-option-box"]
                 : styles["option-box"]
             }
             onClick={handleOpitionBoxClick}
           >
-            {selectedOption}
+            {selectedOption === null ? "옵션선택" : selectedOption.name}
           </div>
           {isMenuOpen && (
             <div className={styles["option-content"]}>
-              {optionList.map((option) => {
+              {productInfo.productOptions.map((option) => {
                 return (
                   <div
                     key={option.id}
                     onClick={() => {
-                      handleOptionClick(option.name);
+                      handleOptionClick(option);
                     }}
                   >
                     {option.name}
@@ -77,7 +116,9 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
           )}
         </div>
         <div className={styles["button-container"]}>
-          <button className={styles.button}>장바구니 담기</button>
+          <button className={styles.button} onClick={handleAddCartButtonClick}>
+            장바구니 담기
+          </button>
         </div>
       </div>
     </div>

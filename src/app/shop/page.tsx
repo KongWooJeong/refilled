@@ -16,6 +16,7 @@ export default async function Shop() {
           return (
             <ProductItem
               key={item.id}
+              id={item.id}
               name={item.name}
               description={item.description}
               originPrice={item.originPrice}
