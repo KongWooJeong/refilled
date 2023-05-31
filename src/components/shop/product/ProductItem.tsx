@@ -38,6 +38,7 @@ export function ProductItem(props: ProductItemProps) {
     tagInfo,
     description,
     imageUrl,
+    productOptions,
   } = props;
 
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
@@ -85,7 +86,9 @@ export function ProductItem(props: ProductItemProps) {
         <div className={styles["description-box"]}>{description}</div>
         {renderProductPriceInfo()}
       </div>
-      {isShowModal && <ProductOptionModal onClose={hideModal} />}
+      {isShowModal && (
+        <ProductOptionModal optionList={productOptions} onClose={hideModal} />
+      )}
     </>
   );
 }

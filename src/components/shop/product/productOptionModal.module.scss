@@ -59,6 +59,16 @@ $button-font-size: 18px;
         border: $box-border;
       }
 
+      .empty-option-box {
+        @extend %box-style;
+
+        height: $box-height;
+        border: $box-border;
+        border: 1px solid #808080;
+        background-color: #f2f2f2;
+        color: #808080;
+      }
+
       .option-content {
         display: flex;
         flex-direction: column;
