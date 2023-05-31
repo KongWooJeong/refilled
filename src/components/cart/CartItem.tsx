@@ -7,12 +7,13 @@ interface Tag {
 }
 
 interface CartItemProps {
+  id: string;
   name: string;
   originPrice: number;
   price: number;
   discountPercent: number;
   tagInfo: Tag | "";
-  description: string;
+  option?: string;
   imageUrl: string;
 }
 
@@ -23,7 +24,7 @@ export function CartItem(props: CartItemProps) {
     price,
     discountPercent,
     tagInfo,
-    description,
+    option,
     imageUrl,
   } = props;
 
@@ -55,7 +56,7 @@ export function CartItem(props: CartItemProps) {
           <div className={styles[`${tagInfo.color}-box`]}>{tagInfo.text}</div>
         )}
         <div className={styles["name-box"]}>{name}</div>
-        <div className={styles["description-box"]}>{description}</div>
+        {option && <div className={styles["description-box"]}>{option}</div>}
         <div className={styles["price-container"]}>
           {renderCartItemPriceInfo()}
         </div>
