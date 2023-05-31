@@ -1,0 +1,64 @@
+$product-padding: 40px 40px 85px;
+$purchase-container-width: 375px;
+$purchase-container-height: 85px;
+$button-container-padding: 19px 24px;
+$button-width: 327px;
+$button-height: 48px;
+$button-font-size: 16px;
+$button-font-weight-medium: 400;
+$button-font-weight-bold: 600;
+$background-color-white: #fff;
+$background-color-black: #000;
+$button-box-shadow: 0 -2px 32px rgb(136 136 136 / 25%);
+
+@mixin flex-display($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+}
+
+@mixin text-style($font-weight) {
+  font-size: $button-font-size;
+  font-weight: $font-weight;
+}
+
+.main-container {
+  @include flex-display(column);
+
+  height: 100%;
+
+  .product-container {
+    padding: $product-padding;
+  }
+}
+
+.purchase-container {
+  width: $purchase-container-width;
+  height: $purchase-container-height;
+  position: absolute;
+  background-color: $background-color-white;
+  bottom: 0;
+
+  .button-container {
+    padding: $button-container-padding;
+    box-shadow: $button-box-shadow;
+
+    .button {
+      all: unset;
+      width: $button-width;
+      height: $button-height;
+      color: $background-color-white;
+      background-color: $background-color-black;
+      text-align: center;
+      cursor: pointer;
+
+      .text-medium {
+        @include text-style($button-font-weight-medium);
+      }
+
+      .text-bold {
+        @include text-style($button-font-weight-bold);
+      }
+    }
+  }
+}
