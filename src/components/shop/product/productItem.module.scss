@@ -4,15 +4,30 @@
   width: 168px;
 }
 
-.best-box {
+.blue-box {
   width: 38px;
   height: 18px;
-  margin-top: 12px;
   text-align: center;
   line-height: 18px;
   font-size: 10px;
   color: white;
   background-color: #256cee;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.image-box {
+  margin-bottom: 12px;
+}
+
+.gray-box {
+  width: 38px;
+  height: 18px;
+  text-align: center;
+  line-height: 18px;
+  font-size: 10px;
+  color: #333;
+  background-color: #e6e6e6;
   font-style: normal;
   font-weight: 400;
 }
@@ -33,13 +48,21 @@
   color: #808080;
 }
 
-.origin-price-box {
+.origin-price-line-box {
   margin-top: 8px;
   font-weight: 400;
   font-size: 12px;
   line-height: 12px;
   color: #666;
   text-decoration: line-through;
+}
+
+.origin-price-box {
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 12px;
+  color: #666;
 }
 
 .discount-percent-box {

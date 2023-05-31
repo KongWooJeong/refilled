@@ -2,10 +2,12 @@ import styles from "./shop.module.scss";
 import Image from "next/image";
 import menuIcon from "../../../public/icon/menu.svg";
 import cartIcon from "../../../public/icon/cart.svg";
-
 import { ProductItem } from "@/components/shop/product/ProductItem";
+import { shopRepository } from "@/data/repository/shopRepository";
 
-export default function Shop() {
+export default async function Shop() {
+  const productList = await shopRepository.getShopProductList();
+
   return (
     <div className={styles["page-container"]}>
       <header className={styles["header-container"]}>
@@ -23,11 +25,21 @@ export default function Shop() {
           <p>완벅한 탈모케어를 위한 선택</p>
         </div>
         <section className={styles["product-box"]}>
-          {/* 스타일 설정을 위한 임시 아이템 선언, api 호출 작업시 변경 예정 */}
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
+          {productList.map((item) => {
+            return (
+              <ProductItem
+                key={item.id}
+                name={item.name}
+                description={item.description}
+                originPrice={item.originPrice}
+                price={item.price}
+                discountPercent={item.discountPercent}
+                tagInfo={item.tagInfo}
+                imageUrl={item.imageUrl}
+                productOptions={item.productOptions}
+              />
+            );
+          })}
         </section>
       </main>
     </div>
