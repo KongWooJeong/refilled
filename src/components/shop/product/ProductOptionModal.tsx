@@ -5,6 +5,11 @@ import ReactDOM from "react-dom";
 
 import styles from "./productOptionModal.module.scss";
 
+interface Tag {
+  color: string;
+  text: string;
+}
+
 interface ProductOption {
   id: number;
   name: string;
@@ -12,13 +17,25 @@ interface ProductOption {
   stock: number;
 }
 
+interface ProductInfo {
+  id: number;
+  name: string;
+  originPrice: number;
+  price: number;
+  discountPercent: number;
+  tagInfo: Tag | "";
+  description: string;
+  imageUrl: string;
+  productOptions: ProductOption[];
+}
+
 interface ProductOptionModalProps {
   onClose: () => void;
-  optionList: ProductOption[];
+  productInfo: ProductInfo;
 }
 
 export function ProductOptionModal(props: ProductOptionModalProps) {
-  const { onClose, optionList } = props;
+  const { onClose, productInfo } = props;
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>("옵션선택");
@@ -47,11 +64,11 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
       onClick={handleCloseClick}
     >
       <div className={styles["modal"]}>
-        <div className={styles["name-box"]}>헤어 리커버리 사이토카인 키트</div>
+        <div className={styles["name-box"]}>{productInfo.name}</div>
         <div className={styles["select-box"]}>
           <div
             className={
-              optionList.length === 0
+              productInfo.productOptions.length === 0
                 ? styles["empty-option-box"]
                 : styles["option-box"]
             }
@@ -61,7 +78,7 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
           </div>
           {isMenuOpen && (
             <div className={styles["option-content"]}>
-              {optionList.map((option) => {
+              {productInfo.productOptions.map((option) => {
                 return (
                   <div
                     key={option.id}

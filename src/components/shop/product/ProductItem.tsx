@@ -19,6 +19,7 @@ interface ProductOption {
 }
 
 interface ProductItemProps {
+  id: number;
   name: string;
   originPrice: number;
   price: number;
@@ -31,6 +32,7 @@ interface ProductItemProps {
 
 export function ProductItem(props: ProductItemProps) {
   const {
+    id,
     name,
     originPrice,
     price,
@@ -87,7 +89,20 @@ export function ProductItem(props: ProductItemProps) {
         {renderProductPriceInfo()}
       </div>
       {isShowModal && (
-        <ProductOptionModal optionList={productOptions} onClose={hideModal} />
+        <ProductOptionModal
+          productInfo={{
+            id,
+            name,
+            originPrice,
+            price,
+            discountPercent,
+            tagInfo,
+            description,
+            imageUrl,
+            productOptions,
+          }}
+          onClose={hideModal}
+        />
       )}
     </>
   );
