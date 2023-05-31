@@ -5,7 +5,13 @@ import { CartItem } from "@/components/cart/CartItem";
 import { useAppSelector } from "@/redux/hooks";
 
 export default function Cart() {
-  const cartItem = useAppSelector((state) => state.cartReducer.cartItem);
+  const { totalCount, totalPrice, cartItem } = useAppSelector((state) => {
+    return {
+      totalCount: state.cartReducer.totalItemCount,
+      totalPrice: state.cartReducer.totalItemPrice,
+      cartItem: state.cartReducer.cartItem,
+    };
+  });
 
   return (
     <main className={styles["main-container"]}>
@@ -31,7 +37,9 @@ export default function Cart() {
       <div className={styles["purchase-container"]}>
         <div className={styles["button-container"]}>
           <button className={styles.button}>
-            <span className={styles["text-medium"]}>5개 | 29,0000원 </span>
+            <span
+              className={styles["text-medium"]}
+            >{`${totalCount}개 | ${totalPrice}원 `}</span>
             <span className={styles["text-bold"]}>구매하기</span>
           </button>
         </div>

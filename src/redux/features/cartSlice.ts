@@ -29,10 +29,14 @@ interface CartState {
   cartItem: {
     [key: string]: Product;
   };
+  totalItemCount: number;
+  totalItemPrice: number;
 }
 
 const initialState = {
   cartItem: {},
+  totalItemCount: 0,
+  totalItemPrice: 0,
 } as CartState;
 
 export const cart = createSlice({
@@ -43,10 +47,14 @@ export const cart = createSlice({
       const id = nanoid();
 
       state.cartItem[id] = action.payload;
+      state.totalItemCount += 1;
+      state.totalItemPrice += action.payload.price;
     },
     removeCartItem: (state, action: PayloadAction<string>) => {
       const id = action.payload;
 
+      state.totalItemCount -= 1;
+      state.totalItemPrice -= state.cartItem[id].price;
       delete state.cartItem[id];
     },
   },
