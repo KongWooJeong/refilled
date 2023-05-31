@@ -1,43 +1,46 @@
-.shop-container {
+$main-padding: 0 16px;
+$product-grid-gap: 32px 7px;
+$white: #fff;
+$content-margin: 26px 0;
+$content-font-size: 20px;
+$content-font-weight: 600;
+$content-line-height: 30px;
+
+@mixin flex-display($direction) {
   display: flex;
-  flex-direction: row;
+  flex-direction: $direction;
   justify-content: center;
-  margin: auto;
-  height: 100vh;
-  background-color: #f2f2f2;
 }
 
-.page-container {
-  display: flex;
-  flex-direction: column;
-  width: 375px;
-  background-color: #fff;
+@mixin content-font-settings {
+  font-size: $content-font-size;
+  font-weight: $content-font-weight;
+  line-height: $content-line-height;
+}
 
-  .main-container {
-    display: flex;
-    flex-direction: column;
+.main-container {
+  @include flex-display(column);
+
+  height: 100%;
+  padding: $main-padding;
+  overflow-y: scroll;
+
+  .content-box {
+    @include content-font-settings;
+
+    margin: $content-margin;
+
+    p {
+      margin: 0;
+      background-color: $white;
+    }
+  }
+
+  .product-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $product-grid-gap;
+    align-content: start;
     height: 100%;
-    padding: 0 16px;
-    overflow-y: scroll;
-
-    .content-box {
-      margin: 26px 0;
-      font-size: 20px;
-      font-weight: 600px;
-      line-height: 30px;
-
-      p {
-        margin: 0;
-        background-color: white;
-      }
-    }
-
-    .product-box {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px 7px;
-      align-content: start;
-      height: 100%;
-    }
   }
 }

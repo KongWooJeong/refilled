@@ -1,0 +1,25 @@
+$root-conatiner-height: 100vh;
+$page-conatiner-width: 375px;
+$root-background-color: #f2f2f2;
+$page-background-color: #fff;
+
+@mixin flex-display($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+}
+
+.root-container {
+  @include flex-display(row);
+
+  margin: auto;
+  height: $root-conatiner-height;
+  background-color: $root-background-color;
+
+  .page-container {
+    @include flex-display(column);
+
+    width: $page-conatiner-width;
+    background-color: $page-background-color;
+  }
+}
