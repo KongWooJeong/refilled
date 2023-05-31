@@ -1,0 +1,113 @@
+$box-width: 40px;
+$box-height: 18px;
+$box-font-size: 10px;
+$box-font-weight: 400;
+$box-line-height: 18px;
+$box-text-align: center;
+$margin-top: 4px;
+$margin-bottom: 40px;
+$margin-right: 12px;
+$font-size-lg: 16px;
+$font-size-md: 14px;
+$font-size-sm: 12px;
+$line-height-lg: 22.4px;
+$line-height-md: 21px;
+$line-height-sm: 12px;
+$color-white: #fff;
+$color-blue: #256cee;
+$color-gray: #333;
+$color-lightgray: #e6e6e6;
+$color-red: #e94734;
+
+@mixin box-style($color, $background-color) {
+  width: $box-width;
+  height: $box-height;
+  text-align: $box-text-align;
+  line-height: $box-line-height;
+  font-size: $box-font-size;
+  color: $color;
+  background-color: $background-color;
+  font-weight: $box-font-weight;
+}
+
+@mixin flex-display($direction) {
+  display: flex;
+  flex-direction: $direction;
+}
+
+.product-container {
+  @include flex-display(row);
+
+  margin-bottom: $margin-bottom;
+
+  .image-box {
+    margin-right: $margin-right;
+  }
+
+  .content-container {
+    @include flex-display(column);
+
+    .blue-box {
+      @include box-style($color-white, $color-blue);
+    }
+
+    .gray-box {
+      @include box-style($color-gray, $color-lightgray);
+    }
+
+    .name-box {
+      margin-top: $margin-top;
+      font-weight: 600;
+      font-size: $font-size-lg;
+      line-height: $line-height-lg;
+      color: $color-gray;
+    }
+
+    .description-box {
+      margin-top: $margin-top;
+      font-weight: 400;
+      font-size: $font-size-md;
+      line-height: $line-height-md;
+      color: #666;
+    }
+
+    .price-container {
+      text-align: right;
+
+      .origin-price-line-box,
+      .origin-price-box {
+        margin-top: 10px;
+        font-weight: 400;
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        color: #666;
+      }
+
+      .origin-price-line-box {
+        text-decoration: line-through;
+      }
+
+      .discount-percent-box {
+        display: inline-block;
+        margin-top: 6px;
+        margin-right: 4px;
+        font-weight: 600;
+        font-size: $font-size-sm;
+        line-height: $line-height-sm;
+        color: $color-red;
+      }
+
+      .discount-price-box {
+        font-weight: 600;
+        font-size: $font-size-lg;
+        line-height: $font-size-lg;
+        color: $color-gray;
+      }
+    }
+  }
+
+  .close-button {
+    cursor: pointer;
+    font-size: 20px;
+  }
+}
