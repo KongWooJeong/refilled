@@ -1,6 +1,7 @@
 $main-padding: 0 16px;
 $product-grid-gap: 32px 7px;
 $white: #fff;
+$grey: #808080;
 $content-margin: 26px 0;
 $content-font-size: 20px;
 $content-font-weight: 600;
@@ -34,6 +35,10 @@ $content-line-height: 30px;
     @include content-font-settings;
 
     margin: $content-margin;
+
+    .text-gray {
+      color: $grey;
+    }
 
     p {
       margin: 0;
