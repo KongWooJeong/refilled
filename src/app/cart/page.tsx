@@ -2,17 +2,11 @@
 
 import styles from "./cart.module.scss";
 import { CartItem } from "@/components/cart/CartItem";
-import { useAppSelector } from "@/redux/hooks";
 import { formatNumber } from "@/utils/stringUtils";
+import { useGetCartItem } from "@/hooks/cart/useGetCartItem";
 
 export default function Cart() {
-  const { totalCount, totalPrice, cartItem } = useAppSelector((state) => {
-    return {
-      totalCount: state.cartReducer.totalItemCount,
-      totalPrice: state.cartReducer.totalItemPrice,
-      cartItem: state.cartReducer.cartItem,
-    };
-  });
+  const { totalCount, totalPrice, cartItem } = useGetCartItem();
 
   return (
     <main className={styles["main-container"]}>

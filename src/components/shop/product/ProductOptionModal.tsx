@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import styles from "./productOptionModal.module.scss";
-import { addCartItem } from "@/redux/features/cartSlice";
-import { useAppDispatch } from "@/redux/hooks";
 
 import { Modal } from "@/components/common/Modal";
+
+import { useAddCartItem } from "@/hooks/cart/useAddCartItem";
 
 interface Tag {
   color: string;
@@ -43,8 +43,7 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
   const [selectedOption, setSelectedOption] = useState<ProductOption | null>(
     null
   );
-
-  const dispatch = useAppDispatch();
+  const addCartItem = useAddCartItem();
 
   function handleOpitionBoxClick() {
     setIsMenuOpen((state) => !state);
@@ -56,19 +55,17 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
   }
 
   function handleAddCartButtonClick() {
-    dispatch(
-      addCartItem({
-        id: productInfo.id,
-        name: productInfo.name,
-        originPrice: productInfo.originPrice,
-        price: productInfo.price,
-        discountPercent: productInfo.discountPercent,
-        tagInfo: productInfo.tagInfo,
-        description: productInfo.description,
-        imageUrl: productInfo.imageUrl,
-        selectedOption,
-      })
-    );
+    addCartItem({
+      id: productInfo.id,
+      name: productInfo.name,
+      originPrice: productInfo.originPrice,
+      price: productInfo.price,
+      discountPercent: productInfo.discountPercent,
+      tagInfo: productInfo.tagInfo,
+      description: productInfo.description,
+      imageUrl: productInfo.imageUrl,
+      selectedOption,
+    });
     onClose();
   }
 
