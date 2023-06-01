@@ -3,11 +3,17 @@ import "normalize.css";
 import { Header } from "@/components/common/Header";
 import styles from "./rootLayout.module.scss";
 import { Providers } from "@/redux/Provider";
+import { Noto_Sans_KR } from "next/font/google";
 
 export const metadata = {
-  title: "",
-  description: "",
+  title: "Refilled",
+  description: "탈모 관리 상품 스토어",
 };
+
+const NotoSansKR = Noto_Sans_KR({
+  weight: ["100", "300", "400", "500", "700", "900"],
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -15,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={NotoSansKR.className}>
       <body>
         <Providers>
           <div className={styles["root-container"]}>

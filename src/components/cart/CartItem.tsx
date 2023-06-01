@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "./cartItem.module.scss";
 import { removeCartItem } from "@/redux/features/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { formatNumber } from "@/utils/stringUtils";
 
 interface Tag {
   color: string;
@@ -41,16 +42,24 @@ export function CartItem(props: CartItemProps) {
 
   const renderCartItemPriceInfo = () => {
     if (discountPercent === 0) {
-      return <div className={styles["origin-price-box"]}>{originPrice}원</div>;
+      return (
+        <div className={styles["origin-price-box"]}>
+          {formatNumber(originPrice)}원
+        </div>
+      );
     } else {
       return (
         <>
-          <div className={styles["origin-price-line-box"]}>{originPrice}원</div>
+          <div className={styles["origin-price-line-box"]}>
+            {formatNumber(originPrice)}원
+          </div>
           <div>
             <span className={styles["discount-percent-box"]}>
               {discountPercent}%
             </span>
-            <span className={styles["discount-price-box"]}>{price}원</span>
+            <span className={styles["discount-price-box"]}>
+              {formatNumber(price)}원
+            </span>
           </div>
         </>
       );

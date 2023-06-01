@@ -3,6 +3,7 @@
 import styles from "./cart.module.scss";
 import { CartItem } from "@/components/cart/CartItem";
 import { useAppSelector } from "@/redux/hooks";
+import { formatNumber } from "@/utils/stringUtils";
 
 export default function Cart() {
   const { totalCount, totalPrice, cartItem } = useAppSelector((state) => {
@@ -16,8 +17,6 @@ export default function Cart() {
   return (
     <main className={styles["main-container"]}>
       <section className={styles["product-container"]}>
-        {/* 임시로 목업 데이터 적용 */}
-
         {Object.entries(cartItem).map(([key, value]) => {
           return (
             <CartItem
@@ -39,7 +38,7 @@ export default function Cart() {
           <button className={styles.button}>
             <span
               className={styles["text-medium"]}
-            >{`${totalCount}개 | ${totalPrice}원 `}</span>
+            >{`${totalCount}개 | ${formatNumber(totalPrice)}원 `}</span>
             <span className={styles["text-bold"]}>구매하기</span>
           </button>
         </div>
