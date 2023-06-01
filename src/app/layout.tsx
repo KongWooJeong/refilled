@@ -10,7 +10,7 @@ export const metadata = {
   description: "탈모 관리 상품 스토어",
 };
 
-const NotoSansKR = Noto_Sans_KR({
+const notoSansKR = Noto_Sans_KR({
   weight: ["100", "300", "400", "500", "700", "900"],
   subsets: ["latin"],
 });
@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={NotoSansKR.className}>
+    <html lang="en" className={notoSansKR.className}>
       <body>
         <Providers>
           <div className={styles["root-container"]}>
