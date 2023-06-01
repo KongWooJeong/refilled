@@ -6,8 +6,8 @@ import { Providers } from "@/redux/Provider";
 import { Noto_Sans_KR } from "next/font/google";
 
 export const metadata = {
-  title: "",
-  description: "",
+  title: "Refilled",
+  description: "탈모 관리 상품 스토어",
 };
 
 const NotoSansKR = Noto_Sans_KR({
