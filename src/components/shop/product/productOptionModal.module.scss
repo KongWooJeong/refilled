@@ -8,7 +8,7 @@ $button-background-color: #1a1a1a;
 $button-font-weight: 500;
 $button-font-size: 18px;
 
-@mixin modal-box($marginTop) {
+@mixin menu-box($marginTop) {
   margin-top: $marginTop;
   font-weight: 500;
   font-size: 18px;
@@ -23,81 +23,60 @@ $button-font-size: 18px;
   cursor: pointer;
 }
 
-.modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 1;
-  width: 375px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(0 0 0 / 30%);
+.name-box {
+  @include menu-box(11px);
+}
 
-  .modal {
+.select-box {
+  @include menu-box(12px);
+
+  height: 240px;
+  width: 100%;
+
+  .option-box {
+    @extend %box-style;
+
+    height: $box-height;
+    border: $box-border;
+  }
+
+  .empty-option-box {
+    @extend %box-style;
+
+    height: $box-height;
+    border: $box-border;
+    border: 1px solid #808080;
+    background-color: #f2f2f2;
+    color: #808080;
+  }
+
+  .option-content {
     display: flex;
     flex-direction: column;
-    padding: 22px 15px;
-    background: $modal-background-color;
-    width: 300px;
-    height: 350px;
+    margin-top: 2px;
 
-    .name-box {
-      @include modal-box(11px);
+    div {
+      @extend %box-style;
+
+      height: $box-height;
+      border: $box-border;
     }
+  }
+}
 
-    .select-box {
-      @include modal-box(12px);
+.button-container {
+  height: 60px;
 
-      height: 240px;
-      width: 100%;
-
-      .option-box {
-        @extend %box-style;
-
-        height: $box-height;
-        border: $box-border;
-      }
-
-      .empty-option-box {
-        @extend %box-style;
-
-        height: $box-height;
-        border: $box-border;
-        border: 1px solid #808080;
-        background-color: #f2f2f2;
-        color: #808080;
-      }
-
-      .option-content {
-        display: flex;
-        flex-direction: column;
-        margin-top: 2px;
-
-        div {
-          @extend %box-style;
-
-          height: $box-height;
-          border: $box-border;
-        }
-      }
-    }
-
-    .button-container {
-      height: 60px;
-
-      .button {
-        all: unset;
-        top: 1;
-        width: 100%;
-        height: 100%;
-        color: $modal-background-color;
-        background-color: $button-background-color;
-        text-align: center;
-        font-weight: $button-font-weight;
-        font-size: $button-font-size;
-        cursor: pointer;
-      }
-    }
+  .button {
+    all: unset;
+    top: 1;
+    width: 100%;
+    height: 100%;
+    color: $modal-background-color;
+    background-color: $button-background-color;
+    text-align: center;
+    font-weight: $button-font-weight;
+    font-size: $button-font-size;
+    cursor: pointer;
   }
 }

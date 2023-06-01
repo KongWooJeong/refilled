@@ -9,7 +9,7 @@ export default async function Shop() {
     <main className={styles["main-container"]}>
       <div className={styles["content-box"]}>
         <p>사이토카인.</p>
-        <p>완벅한 탈모케어를 위한 선택</p>
+        <p className={styles["text-gray"]}>완벅한 탈모케어를 위한 선택</p>
       </div>
       <section className={styles["product-box"]}>
         {productList.map((item) => {

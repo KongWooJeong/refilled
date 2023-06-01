@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useState, MouseEvent } from "react";
-import ReactDOM from "react-dom";
+import { useState } from "react";
 import styles from "./productOptionModal.module.scss";
 import { addCartItem } from "@/redux/features/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
+
+import { Modal } from "@/components/common/Modal";
 
 interface Tag {
   color: string;
@@ -43,15 +44,7 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
     null
   );
 
-  const modalOverlay = useRef<HTMLDivElement>(null);
-
   const dispatch = useAppDispatch();
-
-  function handleCloseClick(event: MouseEvent<HTMLDivElement>) {
-    if (event.target === modalOverlay.current) {
-      onClose();
-    }
-  }
 
   function handleOpitionBoxClick() {
     setIsMenuOpen((state) => !state);
@@ -79,53 +72,42 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
     onClose();
   }
 
-  const modalContent = (
-    <div
-      ref={modalOverlay}
-      className={styles["modal-overlay"]}
-      onClick={handleCloseClick}
-    >
-      <div className={styles["modal"]}>
-        <div className={styles["name-box"]}>{productInfo.name}</div>
-        <div className={styles["select-box"]}>
-          <div
-            className={
-              productInfo.productOptions.length === 0
-                ? styles["empty-option-box"]
-                : styles["option-box"]
-            }
-            onClick={handleOpitionBoxClick}
-          >
-            {selectedOption === null ? "옵션선택" : selectedOption.name}
+  return (
+    <Modal onClose={onClose}>
+      <div className={styles["name-box"]}>{productInfo.name}</div>
+      <div className={styles["select-box"]}>
+        <div
+          className={
+            productInfo.productOptions.length === 0
+              ? styles["empty-option-box"]
+              : styles["option-box"]
+          }
+          onClick={handleOpitionBoxClick}
+        >
+          {selectedOption === null ? "옵션선택" : selectedOption.name}
+        </div>
+        {isMenuOpen && (
+          <div className={styles["option-content"]}>
+            {productInfo.productOptions.map((option) => {
+              return (
+                <div
+                  key={option.id}
+                  onClick={() => {
+                    handleOptionClick(option);
+                  }}
+                >
+                  {option.name}
+                </div>
+              );
+            })}
           </div>
-          {isMenuOpen && (
-            <div className={styles["option-content"]}>
-              {productInfo.productOptions.map((option) => {
-                return (
-                  <div
-                    key={option.id}
-                    onClick={() => {
-                      handleOptionClick(option);
-                    }}
-                  >
-                    {option.name}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-        <div className={styles["button-container"]}>
-          <button className={styles.button} onClick={handleAddCartButtonClick}>
-            장바구니 담기
-          </button>
-        </div>
+        )}
       </div>
-    </div>
-  );
-
-  return ReactDOM.createPortal(
-    modalContent,
-    document.getElementById("modal-root")
+      <div className={styles["button-container"]}>
+        <button className={styles.button} onClick={handleAddCartButtonClick}>
+          장바구니 담기
+        </button>
+      </div>
+    </Modal>
   );
 }
