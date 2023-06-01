@@ -40,7 +40,7 @@ export function CartItem(props: CartItemProps) {
     dispatch(removeCartItem(id));
   }
 
-  const renderCartItemPriceInfo = () => {
+  function renderCartItemPriceInfo() {
     if (discountPercent === 0) {
       return (
         <div className={styles["origin-price-box"]}>
@@ -64,7 +64,7 @@ export function CartItem(props: CartItemProps) {
         </>
       );
     }
-  };
+  }
 
   return (
     <div className={styles["product-container"]}>
