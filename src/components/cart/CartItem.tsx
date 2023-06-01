@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import styles from "./cartItem.module.scss";
-import { removeCartItem } from "@/redux/features/cartSlice";
-import { useAppDispatch } from "@/redux/hooks";
 import { formatNumber } from "@/utils/stringUtils";
+import { useRemoveCartItem } from "@/hooks/cart/useRemoveCartItem";
 
 interface Tag {
   color: string;
@@ -37,10 +36,10 @@ export function CartItem(props: CartItemProps) {
     imageUrl,
   } = props;
 
-  const dispatch = useAppDispatch();
+  const removeCartItem = useRemoveCartItem();
 
   function handleRemoveItemButtonClick() {
-    dispatch(removeCartItem(id));
+    removeCartItem(id);
   }
 
   function renderCartItemPriceInfo() {
