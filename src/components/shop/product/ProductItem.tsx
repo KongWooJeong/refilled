@@ -32,6 +32,9 @@ interface ProductItemProps {
   productOptions: ProductOption[];
 }
 
+// 상품 할인룰이 0 인것을 의미한다.
+const ZERO_PERCENT = 0;
+
 export function ProductItem(props: ProductItemProps) {
   const {
     id,
@@ -60,7 +63,7 @@ export function ProductItem(props: ProductItemProps) {
   }
 
   const renderProductPriceInfo = () => {
-    if (discountPercent === 0) {
+    if (discountPercent === ZERO_PERCENT) {
       return (
         <div className={styles["origin-price-box"]}>
           {formatNumber(originPrice)}원
