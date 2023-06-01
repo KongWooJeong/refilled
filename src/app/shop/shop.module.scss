@@ -18,6 +18,12 @@ $content-line-height: 30px;
   line-height: $content-line-height;
 }
 
+%box-style {
+  @include flex-display(column);
+
+  align-items: center;
+}
+
 .main-container {
   @include flex-display(column);
 
@@ -45,8 +51,9 @@ $content-line-height: 30px;
 }
 
 .error-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @extend %box-style;
+}
+
+.loading-container {
+  @extend %box-style;
 }
