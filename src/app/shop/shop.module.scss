@@ -43,3 +43,10 @@ $content-line-height: 30px;
     height: 100%;
   }
 }
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
