@@ -15,10 +15,14 @@ export default function Error({
     console.error(error);
   }, [error]);
 
+  function handleRetryButtonClick() {
+    reset();
+  }
+
   return (
     <div className={styles["error-container"]}>
       <h2>문제가 발생하였습니다.</h2>
-      <button onClick={() => reset()}>Try again</button>
+      <button onClick={handleRetryButtonClick}>Try again</button>
     </div>
   );
 }
