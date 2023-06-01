@@ -22,6 +22,9 @@ interface CartItemProps {
   imageUrl: string;
 }
 
+// 상품 할인룰이 0 인것을 의미한다.
+const ZERO_PERCENT = 0;
+
 export function CartItem(props: CartItemProps) {
   const {
     id,
@@ -41,7 +44,7 @@ export function CartItem(props: CartItemProps) {
   }
 
   function renderCartItemPriceInfo() {
-    if (discountPercent === 0) {
+    if (discountPercent === ZERO_PERCENT) {
       return (
         <div className={styles["origin-price-box"]}>
           {formatNumber(originPrice)}원
