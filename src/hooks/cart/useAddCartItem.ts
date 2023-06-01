@@ -31,9 +31,9 @@ interface Product {
 export const useAddCartItem = () => {
   const dispatch = useAppDispatch();
 
-  const addCart = (product: Product) => {
+  const addCartProdcut = (product: Product) => {
     dispatch(addCartItem(product));
   };
 
-  return addCart;
+  return addCartProdcut;
 };

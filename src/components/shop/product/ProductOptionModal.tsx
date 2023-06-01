@@ -43,7 +43,7 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
   const [selectedOption, setSelectedOption] = useState<ProductOption | null>(
     null
   );
-  const addCart = useAddCartItem();
+  const addCartItem = useAddCartItem();
 
   function handleOpitionBoxClick() {
     setIsMenuOpen((state) => !state);
@@ -55,7 +55,7 @@ export function ProductOptionModal(props: ProductOptionModalProps) {
   }
 
   function handleAddCartButtonClick() {
-    addCart({
+    addCartItem({
       id: productInfo.id,
       name: productInfo.name,
       originPrice: productInfo.originPrice,
